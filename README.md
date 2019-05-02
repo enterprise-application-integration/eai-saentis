@@ -17,14 +17,13 @@ The Business Model of the Scenario would look like this
 We split the existing scenario up into four separated processes.
 
 ### Order placement
-<img width="647" alt="Business Model" src="">
+<img width="647" alt="Business Model" src="OrderPlacement.png">
+
 ### Payment Service
-<img width="647" alt="Business Model" src="https://user-images.githubusercontent.com/36926984/55685649-d65e2900-5958-11e9-9e03-6afaee37e386.png">
+<img width="647" alt="Business Model" src="InventoryService.png">
+
 ### Inventory Service
-<img width="647" alt="Business Model" src="https://user-images.githubusercontent.com/36926984/55685649-d65e2900-5958-11e9-9e03-6afaee37e386.png">
+<img width="647" alt="Business Model" src="InventoryService.png">
+
 ### Shipment Service
-
-
-
-
-
+<img width="647" alt="Business Model" src="ShipmentService.png">
