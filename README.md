@@ -13,6 +13,16 @@ The Business Model of the Scenario would look like this
 5. Each item which is put into the package will be noted by the system and a delivery note will be produced, printed out and put in the package as well
 6. When the package is complete and the delivery note attached it will be shipped out to the customers address.
 
+## Our Adaptation of the given scenario
+We split the existing scenario up into four separated processes.
+
+### Order placement
+<img width="647" alt="Business Model" src="">
+### Payment Service
+<img width="647" alt="Business Model" src="https://user-images.githubusercontent.com/36926984/55685649-d65e2900-5958-11e9-9e03-6afaee37e386.png">
+### Inventory Service
+<img width="647" alt="Business Model" src="https://user-images.githubusercontent.com/36926984/55685649-d65e2900-5958-11e9-9e03-6afaee37e386.png">
+### Shipment Service
 
 
 
