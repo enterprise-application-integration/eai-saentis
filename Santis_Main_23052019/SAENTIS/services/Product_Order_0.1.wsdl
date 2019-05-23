@@ -12,14 +12,14 @@
 			<xsd:element name="Product_OrderOperationRequest">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="Product" type="xsd:string"></xsd:element>
+						<xsd:element name="product_name" type="xsd:string"></xsd:element>
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:element name="Product_OrderOperationResponse">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="Price" type="xsd:float"></xsd:element>
+						<xsd:element name="product_price" type="xsd:double"></xsd:element>
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
