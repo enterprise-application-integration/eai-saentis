@@ -6,25 +6,26 @@ The Santis group is a grocery store that ships it's products to their customers'
 ## Scenario
 We took the scenario suggested by the lectures and adopted it into Santis process. We divided the process into four main process steps which are order placement, receive payment, update inventory and ship the order. In our integration scenario each process step is executed by a service.
 
-<img withd="647" alt="Structure" src="ServiceStructure.png">
+<img withd="647" alt="Structure" src="images/ServiceStructure.png">
 
-1. The process starts when the customer makes their order. To simulate this we created an intent in dialague flow that contains training phrases that can be referenced when a customer places an order. 
-2. Once the customer places their order, the order is inserted into a Google excel sheet through the integromat. At the same time the integromat also sends a confirmation email to the customers. This email contains a short message and the content of the order.
-3. For the next steps in the order management we created jobs in talend to process the order.
-4. In the order placement, talend reads the Google excel sheet and extracts from there the content of the order. IT then enters the information into the Database.
-5. The finance job takes the order data and calculates the price of the order. It also checks if the credit card has enough money on it to cover the order price. Lastly, it subtracts the amount from the credit card.
-6. The inventory job checks if the items ordered are instock and then updates the inventory numbers.
+1. The process starts when the customer makes their order. To place the order they will use their smart speaker such as Alexa or Google Home.
+2. Once their speaker takes the customer order they will receive a confirmation e-mail. In the back ground the order will be save to a Table on Google Drive to be then access and processed later.
+3. Talend will be executing the next steps of the order management process.
+4. In the order placement step, the order service will read the Google Excel sheet and extract from there the content of the order. It then enters the information into the Database. Once it stores the data, it triggers the next step.
+5. We chose to state that the payement must be made before the inventory can be altered. The fulfil the receive payment step, the payment service first has to calculate the sum of the order. Then it must make sure that the clients credit card has sufficient cash on it to pay for the products. If that is the case if deuces the calculated amount from the credit card and triggers the next step.
+6. The inventory job checks if the items ordered are in stock. If that is the case it will reduce the stock by the ordered amount. 
 7. The shipping job creates a tracking number for the order and then sends an email to the customer. And completes the process by shipping the order to the customer.
 
-We chose to state that the payement must be made before the inventory can be altered.
+ 
 
 ## Execution of each servies
 ### Order Service
-(image dialague flow)
-
+(image dialogue flow)
+<img alt="Dialogue Flow" src="images/DialogueFlow.png">
 (image of integromat)
-
+<img alt="Integromat" src="images/Integromat.png">
 image of excel sheet
+<img alt="Google Sheet" src="images/GoogleTableOrder_Listener.png">
 
 image of taled process
 
