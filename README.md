@@ -22,7 +22,7 @@ We took the scenario suggested by the lectures and adopted it into Santis proces
 ### Order Service
 1.	The first implementation was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as Welcome and Goodbye to contain training word that the machinea can recognize. We also created one that contained training phrases which would occur in our scenario (see picture).
 
-<img alt="Dialogue Flow" src="images/DialogueFlow.png">
+<img withd="200" alt="Dialogue Flow" src="images/DialogueFlow.png">
 
 For the order entred in the Dialogue Flow to be processed we linked it to the Integromat. In the integromat we created a webhook that connected to the Dialogue Flow. Through the webhook the integromat would take the order data. The data would then be entered into a google sheets and at the same time an email would be sent to the customer containing the entered data.
 
