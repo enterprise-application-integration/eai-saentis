@@ -1,7 +1,7 @@
 # Säntis Group
 
 ## Introduction
-The Santis group is a grocery store that ships it's products to their customers' front door. Santis' customers put in their order over their smart speaker. The income of the order triggres the process of charging the customers credit card. Once the order is fulfilled they receive an email informing them that their package is on its way also including a tracking number for them to trace their packet.
+The Santis group is a grocery store that ships it's products to their customers' front door. Santis' customers put in their order through their smart speaker. The income of the order triggres the process of charging the customers credit card. Once the order is fulfilled they receive an email informing them that their package is on its way also including a tracking number for them to trace their packet.
 
 ## Scenario
 We took the scenario suggested by the lectures and adopted it into Säntis process. As it was suggested the process can be split into four main process steps: order placement, receive payment, update inventory and order shipment.
