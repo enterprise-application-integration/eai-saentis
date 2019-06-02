@@ -6,7 +6,7 @@ The Santis group is a grocery store that ships it's products to their customers'
 ## Scenario
 We took the scenario suggested by the lectures and adopted it into Santis process. We divided the process into four main process steps which are order placement, receive payment, update inventory and shipping the order. In our integration scenario each process step is executed by a service.
 
-<img withd="647" alt="Structure" src="images/ServiceStructure.png">
+<img width="647" alt="Structure" src="images/ServiceStructure.png">
 
 1. The process starts when the customer makes their order. To place it, they will use their smart speaker such as Alexa or Google Home.
 2. Once their speaker takes and executes the customer's order they will receive a confirmation e-mail. In the back ground the order will be saved to a Table on Google Drive to be then access and processed later.
@@ -22,14 +22,14 @@ We took the scenario suggested by the lectures and adopted it into Santis proces
 ### Order Service
 1.	The first implementation was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as Welcome and Goodbye to contain training word that the machinea can recognize. We also created one that contained training phrases which would occur in our scenario (see picture).
 
-<img withd="647" alt="Dialogue Flow" src="images/DialogueFlow.png">
+<img width="647" alt="Dialogue Flow" src="images/DialogueFlow.PNG">
 
 For the order entred in the Dialogue Flow to be processed we linked it to the Integromat. In the integromat we created a webhook that connected to the Dialogue Flow. Through the webhook the integromat would take the order data. The data would then be entered into a google sheets and at the same time an email would be sent to the customer containing the entered data.
 
-<img withd="200" alt="Integromat" src="images/Integromat.png">
+<img withd="200" alt="Integromat" src="images/Integromat.PNG">
 
 image of excel sheet
-<img alt="Google Sheet" src="images/GoogleTableOrder_Listener.png">
+<img alt="Google Sheet" src="images/GoogleTableOrder_Listener.PNG">
 
 Talend then downloads the google file from the internet so as to access the data within. To start the purchasing process, the data from the order is extracted from the file and input into the database. The database created beforehand contains three tables: Customer, Product and Order. 
 From there a service is used to take the price of the products ordered from the database; this is done through using an XMLMap. This output is then used to calculate the sum by multiplying the ordered quantity by the according price. This sum is then put into the Order table in the database.  
