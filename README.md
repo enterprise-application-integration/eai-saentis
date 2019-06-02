@@ -17,21 +17,27 @@ We took the scenario suggested by the lectures and adopted it into Säntis proce
 7. Lastly, the order shipment requires the generation of a tracking number which is then sent in an email to the customer, confirming the shipping of the order.
  
 
-## Implemnetation
-### Order Service
-1.	The first implementation was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as Welcome and Goodbye to contain training word that the machinea can recognize. We also created one that contained training phrases which would occur in our scenario (see picture).
+## Implementation
+### Database
+To implement the scenario we created a database for the project. The database has 5 tables: customer, product, orders, shipping and maxorder. The customer table contains the common attributes such as Name and address but also the customers credit card number and balance. The product table holds the list of products with their prices and the amount on stock. The orders table and maxorder both hold the same attributes such ad customer and order id, product name and quantity as well as the order sum. The difference between these to is that the order table holds all order made and entered into the database where as maxorder only contains the most current order that is being processed. Lastly the shipping table holds the tracking number of the shipment but only not newest order.
+
+### Order placement
+The first implementation we did was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as Welcome and Goodbye to contain training word that the machine can recognize. We also created one that contained training phrases which would occur in our scenario (see picture).
 
 <img width="500" alt="Dialogue Flow" src="images/DialogueFlow.PNG">
 
-For the order entred in the Dialogue Flow to be processed we linked it to the Integromat. In the Integromat we created a webhook that connected to the Dialogue Flow. Through the webhook the integromat would take the order data. The data would then be entered into a Google sheets and at the same time an email would be sent to the customer containing the entered data.
+For the order entered in the Dialogue Flow to be processed we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialogue Flow. Through the webhook the order data will be taken and enter it into a Google sheet.
 
 <img width="500"  alt="Integromat" src="images/Integromat.PNG">
 
+The order data in the google sheet called Order_Listener will always be overwritten with the newest order.
 
 <img width="500" alt="Google Sheet" src="images/GoogleTableOrder_Listener.PNG">
 
-Talend then downloads the Google file from the internet so as to access the data within. To start the purchasing process, the data from the order is extracted from the file and input into the database. The database created beforehand contains three tables: Customer, Product and Order. 
-From there a service is used to take the price of the products ordered from the database; this is done through using an XMLMap. This output is then used to calculate the sum by multiplying the ordered quantity by the according price. This sum is then put into the Order table in the database.  
+To start the order placement, the  Google sheet has to be read by Talend. To do so the file has to be published to the Web. Then through the tFileFetch component it can be retrieve using the files URL link. IF the file is fetched successfully the next part of the job is triggered.
+The next job is for the data from the order to be extracted from the file and inputted into the orders table, which located in the database.
+The task of the next sub-job is for the newest line of the order table to be read and inputted into the maxorder. For the last order made to be read the tAggregateRow component is used. It goes through the order_id column and looks for the largest number. The newest order is then entered into the maxorder table at the same time overwriting the existing row in that table.
+
 
 ### Payment Service
 The next step is to deduct the outstanding amount from the customers pre-existing balance. The customer’s balance is then updated in the Customer table of the database.
