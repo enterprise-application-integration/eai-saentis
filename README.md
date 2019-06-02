@@ -41,3 +41,8 @@ Before completing the purchase, it then checks the stock of the ordered products
 
 ### Shipment Service
 The values are imported into the Shipping table of the database, which has the java row defined as the variable. An email is then sent to the customer with an order confirmation, stating the order has been shipped, and provides the customer with the tracking number of the order.
+
+### Issues
+-Antivirus causes talend to crash
+-File delimiter a limit has sometimes to be changed due to the same error message as from Antivirus
+-Maxorder table due to issue with tmap and lookups
