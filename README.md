@@ -14,24 +14,23 @@ We took the scenario suggested by the lectures and adopted it into Santis proces
 4. In the order placement step, the order service will read the Google Excel sheet and extract from there the content of the order. It then enters the information into the Database. Once it stores the data, it triggers the next step.
 5. We chose to state that the payement must be made before the inventory can be altered. The fulfil the receive payment step, the payment service first has to calculate the sum of the order. Then it must make sure that the clients credit card has sufficient cash on it to pay for the products. If that is the case if deuces the calculated amount from the credit card and triggers the next step.
 6. The inventory job checks if the items ordered are in stock. If that is the case it will reduce the stock by the ordered amount. 
-7. The shipping job creates a tracking number for the order and then sends an email to the customer. And completes the process by shipping the order to the customer.
-
+7. The shipping job creates a tracking number for the order and then sends an email to the customer. And completes the process by shipping the order to the customer
  
 
-## Execution of each servies
+## Implemnetation
 ### Order Service
 1.	The first implementation was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as Welcome and Goodbye to contain training word that the machinea can recognize. We also created one that contained training phrases which would occur in our scenario (see picture).
 
-<img width="647" alt="Dialogue Flow" src="images/DialogueFlow.PNG">
+<img width="512" height="472" alt="Dialogue Flow" src="images/DialogueFlow.PNG">
 
-For the order entred in the Dialogue Flow to be processed we linked it to the Integromat. In the integromat we created a webhook that connected to the Dialogue Flow. Through the webhook the integromat would take the order data. The data would then be entered into a google sheets and at the same time an email would be sent to the customer containing the entered data.
+For the order entred in the Dialogue Flow to be processed we linked it to the Integromat. In the Integromat we created a webhook that connected to the Dialogue Flow. Through the webhook the integromat would take the order data. The data would then be entered into a Google sheets and at the same time an email would be sent to the customer containing the entered data.
 
-<img withd="200" alt="Integromat" src="images/Integromat.PNG">
+<img width="950" height="596" alt="Integromat" src="images/Integromat.PNG">
 
-image of excel sheet
+
 <img alt="Google Sheet" src="images/GoogleTableOrder_Listener.PNG">
 
-Talend then downloads the google file from the internet so as to access the data within. To start the purchasing process, the data from the order is extracted from the file and input into the database. The database created beforehand contains three tables: Customer, Product and Order. 
+Talend then downloads the Google file from the internet so as to access the data within. To start the purchasing process, the data from the order is extracted from the file and input into the database. The database created beforehand contains three tables: Customer, Product and Order. 
 From there a service is used to take the price of the products ordered from the database; this is done through using an XMLMap. This output is then used to calculate the sum by multiplying the ordered quantity by the according price. This sum is then put into the Order table in the database.  
 
 ### Payment Service
