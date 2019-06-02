@@ -15,11 +15,12 @@ We took the scenario suggested by the lectures and adopted it into Säntis proce
 5. The order sum it then subtracted from the clients credit card.
 6. The next step of updating the inventory is done by reading the order amount and updating it in the product table of the database.
 7. Lastly, the order shipment requires the generation of a tracking number which is then sent in an email to the customer, confirming the shipping of the order.
- 
 
 ## Implementation
+We designed the process as a choreography. Meaning that the sub-processes would we link among each other and not be delegated by a central brain. We chose to implement it this way because the order of the process steps was not going to change throughout this project. Additionally implementing a process as a choreography brings the drawback of it being difficult to manage and maintain, this does not apply to our project since be do not plan on modifying it after completing the project. As to the disadvantage of it being difficult to monitor and track errors, we were able to side step this because our project was small in size and complexity. Based on the way we implemented the process the steps are of a synchronous nature, meaning that each process step has to be successfully complete for it to pass on to the next step. 
+
 ### Database
-To implement the scenario we created a database for the project. The database has 5 tables: customer, product, orders, shipping and maxorder. The customer table contains the common attributes such as Name and address but also the customers credit card number and balance. The product table holds the list of products with their prices and the amount on stock. The orders table and maxorder both hold the same attributes such ad customer and order id, product name and quantity as well as the order sum. The difference between these to is that the order table holds all order made and entered into the database where as maxorder only contains the most current order that is being processed. Lastly the shipping table holds the tracking number of the shipment but only not newest order.
+To implement the scenario we created a database for the project. The database has 5 tables: customer, product, orders, shipping and maxorder. The customer table contains the common attributes such as Name and address but also the customers credit card number and balance. The product table holds the list of products with their prices and the amount on stock. The orders table and maxorder both hold the same attributes such ad customer and order ID, product name and quantity as well as the order sum. The difference between these to is that the order table holds all order made and entered into the database where as maxorder only contains the most current order that is being processed. Lastly the shipping table holds the tracking number of the shipment but only not newest order.
 
 ### Order placement
 The first implementation we did was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as Welcome and Goodbye to contain training word that the machine can recognize. We also created one that contained training phrases which would occur in our scenario (see picture).
@@ -38,17 +39,34 @@ To start the order placement, the  Google sheet has to be read by Talend. To do 
 The next job is for the data from the order to be extracted from the file and inputted into the orders table, which located in the database.
 The task of the next sub-job is for the newest line of the order table to be read and inputted into the maxorder. For the last order made to be read the tAggregateRow component is used. It goes through the order_id column and looks for the largest number. The newest order is then entered into the maxorder table at the same time overwriting the existing row in that table.
 
+<img width="500" alt="Order Placement" src="images/TalendOrderPlacement.PNG">
+
 
 ### Payment Service
+
 The next step is to deduct the outstanding amount from the customers pre-existing balance. The customer’s balance is then updated in the Customer table of the database.
 
-### Inventory Service
-Before completing the purchase, it then checks the stock of the ordered products from the Product table in the database. The ordered quantity is then subtracted from the existing inventory. If, however, there is not enough inventory for the product, it loads 100 more units to the product’s inventory. 
+<img width="500" alt="Calculate Price" src="images/TalendPriceCalculation.PNG">
 
-### Shipment Service
-The values are imported into the Shipping table of the database, which has the java row defined as the variable. An email is then sent to the customer with an order confirmation, stating the order has been shipped, and provides the customer with the tracking number of the order.
+<img width="500" alt="Service Finance" src="images/TalendServiceFinance.PNG">
+
+<img width="500" alt="Receive Payment" src="images/TalendReceivePayment.PNG">
+
+### Inventory Service
+
+Before completing the purchase, it then checks the stock of the ordered products from the Product table in the database. The ordered quantity is then subtracted from the existing inventory. If, however, there is not enough inventory for the product, it loads 100 more units to the product’s inventory.
+
+ <img width="500" alt="Inventroy Update" src="images/TalendUpdateInventory.PNG">
+
+### Order Shipment
+The last step is the order shipment. This step requires the generation of a shipment ID for the customer’s order. The number is autogenerated when the order ID from maxorder table is entered into the shipping table. On the successful execution of that sub-job the shipment ID is read from the database. It is then embedded into an e-mail that is sent to the customer to inform them that their order in on its way.
+
+<img width="500" alt="Order Shipment" src="images/TalendOrderShipment.PNG">
+
+<img width="500" alt="Shipment Email" src="images/ShipmentEmail.PNG">
 
 ### Issues
+Issues we have encounter during our project were:
 -Antivirus causes talend to crash
 -File delimiter a limit has sometimes to be changed due to the same error message as from Antivirus
 -Maxorder table due to issue with tmap and lookups
