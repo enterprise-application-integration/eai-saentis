@@ -87,3 +87,7 @@ During the development of our Enterprise Application Integration we encountered 
     * Then the newest order is written into a new database table "Maxorder" which concludes of just the newest entry always. To ensure this, the table is cleared before inserting the new data.
 
     <img width="500" alt="maxorder_db" src="images/maxorder_db.png">
+
+* Sending Emails via Talend
+    * We could not send emails via the tSendMail element. We tried a lot of different combinations of ports, providers, email adresses and configurations of the element. But nothing seemed to help.
+    * In the end, the solution was rather simple. Again the antivirus software "Avast" seemed to block all ports for Talend. With a deactivation this could be managed.
