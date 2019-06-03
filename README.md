@@ -65,8 +65,14 @@ The last step is the order shipment. This step requires the generation of a ship
 
 <img width="500" alt="Shipment Email" src="images/ShipmentEmail.PNG">
 
-### Issues
-Issues we have encountered during our project were:
--Antivirus causes talend to crash
--File delimiter a limit has sometimes to be changed due to the same error message as from Antivirus
--Maxorder table due to issue with tmap and lookups
+### Issues / Workaraounds
+During the development of our Enterprise Application Integration we encountered a variety of different problems and errors. Following there is a short description and the solution or workaround we chose for all major problems we faced.
+
+* Installation of Talend
+    * At the very beginning of the project, we had extreme difficulties to install the Talend software on our laptops. This might be due to the fact, that most members of our group are using a Macbook. Another reason could have been the unavailability of XAMP. We had to use MAMP instead which caused also problems with Talend.
+    * As a solution we installed Talend on our PC at home and during the coaching lessons, where we worked on our project, established a TeamViewer connection to our Laptop. This way, a working Talend environment was ensured.
+
+* Errormessage that caused Talend to crash
+    * During the workprocess, an error message showed up quite frequently, which caused Talend to crash. The message poped up in all different jobs and elements. It seemed not to be triggered by a single job or action.
+    * The solution is a mixture between the deactivation of the antivirus software "Avast" and changing the value for the Limit-field of the tFileInputDelimiter element at the beginning of the job.
+* Maxorder table due to issue with tmap and lookups
