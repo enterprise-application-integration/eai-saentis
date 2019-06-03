@@ -91,3 +91,13 @@ During the development of our Enterprise Application Integration we encountered 
 * Sending Emails via Talend
     * We could not send emails via the tSendMail element. We tried a lot of different combinations of ports, providers, email adresses and configurations of the element. But nothing seemed to help.
     * In the end, the solution was rather simple. Again the antivirus software "Avast" seemed to block all ports for Talend. With a deactivation this could be managed.
+
+* Using variables to display database values in a email text.
+    * Another problem we faced was the use of variables in an tSendMail element to display values of the database like orderID or tracking number. At first, we tried to make the DB values useable through a tJavaRow element. After this did not work, we tried to hardcode the variables with a tJava element. But this did not work either.
+    * To achieve this purpose, we used the ToIterate element from Talend. This elements allows us to use date from a connection to be further processed in a global variable.
+
+    <img width="500" alt="sendmail_toiterate" src="images/sendmail_toiterate.png">
+
+    * Depending on the datatype, this global variable can then be used with the following statement directly within the body of the email. In our case, the integer with the name order_id is read used as a global variable from the connection "row22". 
+
+    <img width="500" alt="sendmail_body" src="images/sendmail_body.png">
