@@ -119,7 +119,7 @@ During the development of our Enterprise Application Integration we encountered 
 
 * Sending Emails via Talend
     * We could not send emails via the tSendMail element. We tried a lot of different combinations of ports, providers, email adresses and configurations of the element. But nothing seemed to help.
-    * In the end, the solution was rather simple. Again the antivirus software "Avast" seemed to block all ports for Talend. With the deactivation of the softwar this could be managed.
+    * In the end, the solution was rather simple. Again the antivirus software "Avast" seemed to block all ports for Talend. With the deactivation of the software this problem could be managed.
 
 * Using variables to display database values in a email text.
     * Another problem we faced was the use of variables in an tSendMail element to display values of the database like orderID or tracking number. At first, we tried to make the DB values useable through a tJavaRow element. After this did not work, we tried to hardcode the variables with a tJava element. But this did not work either.
@@ -136,7 +136,7 @@ During the development of our Enterprise Application Integration we encountered 
 
     <img width="500" alt="xml_price" src="images/xml_price.png">
 
-    * The issue with this was in the beginning, that we could not transform this xml output into a format whit which we could further calculate the sum of the order. We tried different Talend elements like tExtractXMLField, tFileInputXML etc.
-    * What led to the solution in the end was way more easy. This was a typical case of "thinking to far". We just used another tXMLMap element and mapped the price to a field product_price as a Double.
+    * The issue with this was that in the beginning, we could not transform this xml output into a format whit which we could further calculate the sum of the order. We tried different Talend elements such as  tExtractXMLField, tFileInputXML etc.
+    * What led to the solution in the end was far more easy. This was a typical case of "thinking to far". We just used another tXMLMap element and mapped the price to a field product_price as a Double.
 
     <img width="500" alt="transform" src="images/transform.png">
