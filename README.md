@@ -65,7 +65,7 @@ The last step is the order shipment. This step requires the generation of a ship
 
 <img width="500" alt="Shipment Email" src="images/ShipmentEmail.PNG">
 
-### Issues / Workaraounds
+### Issues / Workarounds
 During the development of our Enterprise Application Integration we encountered a variety of different problems and errors. Following there is a short description and the solution or workaround we chose for all major problems we faced.
 
 * Installation of Talend
@@ -75,4 +75,15 @@ During the development of our Enterprise Application Integration we encountered 
 * Errormessage that caused Talend to crash
     * During the workprocess, an error message showed up quite frequently, which caused Talend to crash. The message poped up in all different jobs and elements. It seemed not to be triggered by a single job or action.
     * The solution is a mixture between the deactivation of the antivirus software "Avast" and changing the value for the Limit-field of the tFileInputDelimiter element at the beginning of the job.
-* Maxorder table due to issue with tmap and lookups
+
+    <img width="500" alt="DelimiterError" src="images/DelimiterError.png">
+
+* Fetching just the newest order from the database
+    * The issue with reading just the newest entry from the database was, that the SQL-Statement in Talend did not accept a WHERE-clause. With the keyword MAX() we could filter the ID-field after the newest entry, but the rest of the table would be another one.
+    * The idea for the solution came through the great effort of our lecturer and Talend-specialist Maja Spahic. She had the idea to get the highest ID of all the orders with the tAggregateRow element, and connect it to the corresponding entries in the database through a tMap lookup.
+
+    <img width="500" alt="Maxorder_lookup" src="images/Maxorder_lookup.png">
+
+    * Then the newest order is written into a new database table "Maxorder" which concludes of just the newest entry always. To ensure this, the table is cleared before inserting the new data.
+
+    <img width="500" alt="maxorder_db" src="images/maxorder_db.png">
