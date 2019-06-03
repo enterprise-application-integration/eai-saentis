@@ -70,12 +70,12 @@ The customer table contains the common attributes such as name and address but a
     
     * <img width="700" alt="Receive Payment" src="images/CalculationCustomerBalance.PNG">
 
- * When the match is made the value from the field order_sum in the maxorder table is store as a variable and the value of the field customer_balance in the customer table is stored as another variable. Then the first variable will be deducted from the second variable. The resulting value will be outputted as customer balance which in the next step is save to the database in the customer table.
+ * When the match is made the value from the field order_sum from the maxorder table is store as a variable and the value of the field customer_balance from the customer table is stored as second variable. Then the first variable will be deducted from the second variable. The resulting value will be outputted as customer balance which in the next step is save to the database in the customer table.
 
     * <img width="700" alt="Receive Payment" src="images/TalendReceivePayment.PNG">
 
 ### Inventory Service
-* Before completing the purchase, the inventory is checked for availability. 
+* Before completing the purchase, the inventory of the products has to be updated. 
 
     * <img width="700" alt="Inventroy Update" src="images/TalendUpdateInventory.PNG">
 
@@ -95,14 +95,14 @@ The customer table contains the common attributes such as name and address but a
     * <img width="900" alt="Shipment Email" src="images/ShipmentEmail.PNG">
 
 ### Issues / Workarounds
-During the development of our Enterprise Application Integration we encountered a variety of different problems and errors. Below we stated short description and the solution or workaround we chose for all major problems we faced.
+During the development of our Enterprise Application Integration we encountered a variety of different problems and errors. Below we stated short descriptions and the solution or workaround we chose for all major problems we faced.
 
 * Installation of Talend
-    * At the very beginning of the project, we had extreme difficulties to install the Talend software on our laptops. This might be due to the fact, that most members of our group are using a Macbook. Another reason could have been the unavailability of XAMP. We had to use MAMP instead which caused also problems with Talend.
+    * At the very beginning of the project, we had extreme difficulties to install the Talend software on our laptops. This might be due to the fact, that most members of our group use a Macbook. Another reason could have been the unavailability of XAMP. We had to use MAMP instead which also caused problems with Talend.
     * As a solution we installed Talend on our PC at home and during the coaching lessons, where we worked on our project, we established a TeamViewer connection to our Laptop. This way, a working Talend environment was ensured.
 
 * Errormessage that caused Talend to crash
-    * During the workprocess, an error message showed up quite frequently, which caused Talend to crash. The message poped up in all different jobs and elements. It seemed not to be triggered by a single job or action.
+    * During the workprocess, an error message showed up quite frequently, which caused Talend to crash. The message popped up in various different jobs and elements. It seemed not to be triggered by a single job or action.
     * The solution is a mixture between the deactivation of the antivirus software "Avast" and changing the value for the Limit-field of the tFileInputDelimiter element at the beginning of the job.
 
     <img width="900" alt="DelimiterError" src="images/DelimiterError.png">
