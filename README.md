@@ -23,20 +23,23 @@ We designed the process as a choreography. Meaning that the sub-processes we wou
 To implement the scenario we created a database for the project. The database has 5 tables: customer, product, orders, shipping and maxorder. The customer table contains the common attributes such as Name and address but also the customer's credit card number and balance. The product table holds the list of products with their prices and the amount on stock. The orders table and maxorder both hold the same attributes such as customer and order ID, product name and quantity as well as the order sum. The difference between these two is that the order table holds all orders made and entered into the database where as maxorder only contains the most current order that is being processed. Lastly, the shipping table holds the tracking number of the shipment but only not newest order.
 
 ### Order placement
-* The first implementation we did was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as Welcome and Goodbye to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario (see picture).
+* The first implementation step we did was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as 'Welcome' and 'Goodbye' to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario.
 
-<img width="700" alt="Dialogue Flow" src="images/DialogueFlow.PNG" placement="center">
+    * <img width="700" alt="Dialogue Flow" src="images/DialogueFlow.PNG">
 
-To ensure the order entered in the Dialogue Flow will be processed we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialogue Flow. Through the webhook the order data will be taken and entered into a Google sheet.
+* To ensure the order entered in the Dialogue Flow will be processed, we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialogue Flow. Through the webhook the order data will be taken and entered into a Google sheet.
 
-<img width="900"  alt="Integromat" src="images/Integromat.PNG">
+    * <img width="700"  alt="Integromat" src="images/Integromat.PNG">
 
-The order data in the google sheet called Order_Listener will always be overwritten with the newest order.
+* The order data in the google sheet called Order_Listener will always be overwritten with the newest order.
 
-<img width="500" alt="Google Sheet" src="images/GoogleTableOrder_Listener.PNG">
+    * <img width="500" alt="Google Sheet" src="images/GoogleTableOrder_Listener.PNG">
 
-To start the order placement task in Talend, the Google sheet has to be read by the program first. For that to be possible the file first has to be published to the Web. Then through the tFileFetch component it can be retrieved. The component is configured to read a specific protocol, in this case the protocol https, and given an URI link to access the wanted file. If the file is fetched successfully the next part of the job is triggered.
-The next job extracts the order data from the file and inputs it into the table orders, which is located in the database. Due to the structure of the downloaded google sheet file, which is now a csv file, we use the tFileInputDelimited component. This component reads a given file row by row with simple separated fields. In our example the field separators is a “,”. 
+* To start the order placement task in Talend, the Google sheet has to be read by the program. For that to be possible, the file first has to be published to the Web. Then through the tFileFetch component it can be retrieved. The component is configured to read a specific protocol, in this case the protocol https, and given an URI link to access the wanted file. If the file is fetched successfully, the next part of the job is triggered.
+
+    * <img width="900" alt="Order Placement" src="images/TalendOrderPlacementFileFetch.PNG">
+    
+* The next job extracts the order data from the file and inputs it into the table orders, which is located in the database. Due to the structure of the downloaded google sheet file, which is now a csv file, we use the tFileInputDelimited component. This component reads a given file row by row with simple separated fields. In our example the field separators is a “,”. 
 The task of the next sub-job is for the newest line of the order table to be read and inputted into the maxorder. To make sure the last order made is read, the tAggregateRow component is used. It goes through the order_id column and looks for the largest number. The newest line is then entered into the maxorder table which at the same time overwrites the existing row in that table.
 
 <img width="900" alt="Order Placement" src="images/TalendOrderPlacement.PNG">
