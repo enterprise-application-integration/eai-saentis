@@ -37,7 +37,7 @@ To implement the scenario we created a database for the project. The database ha
 
 * To start the order placement task in Talend, the Google sheet has to be read by the program. For that to be possible, the file first has to be published to the Web. Then through the tFileFetch component it can be retrieved. The component is configured to read a specific protocol, in this case the protocol https, and given an URI link to access the wanted file. If the file is fetched successfully, the next part of the job is triggered.
 
-    * <img width="900" alt="Order Placement" src="images/TalendOrderPlacementFileFetch.PNG">
+    * <img width="900" alt="Order Placement" src="images/TalendOrderPlacementFileFetch.png">
     
 * The next job extracts the order data from the file and inputs it into the table orders, which is located in the database. Due to the structure of the downloaded google sheet file, which is now a csv file, we use the tFileInputDelimited component. This component reads a given file row by row with simple separated fields. In our example the field separators is a “,”. 
 The task of the next sub-job is for the newest line of the order table to be read and inputted into the maxorder. To make sure the last order made is read, the tAggregateRow component is used. It goes through the order_id column and looks for the largest number. The newest line is then entered into the maxorder table which at the same time overwrites the existing row in that table.
