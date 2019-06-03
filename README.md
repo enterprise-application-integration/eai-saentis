@@ -51,7 +51,11 @@ The next step is to collect payment from the customer. Before deducting anything
 
 <img width="900" alt="Calculate Price" src="images/TalendPriceCalculation.PNG">
 
+Taking a closer look at the Finance Job, which is executed as a service, it is wrapped by tESBProvederRequest and tESBProvederResponse components that delimit the web service. In between we set tLogRow for the values process to be shown on the console. The vital part of this service is the XMLMap which goes through the inputted product names and compares it to the product_name column of the product table. If a match was made the value from the product_price field will be extracted. If the returned value is false an error email will be sent.
+
 <img width="900" alt="Service Finance" src="images/TalendServiceFinance.PNG">
+
+Now that the total price of the order has been calculated, it can be deducted from the customers credit card. To do so the sub-job begins with mapping the maxorder and customer table through the customer ID. When the match is made the value from the field order_sum in the maxorder table is store as a variable and the value of the field customer_balance in the customer table is stored as another variable. Then the first variable will be deducted from the second variable. The resulting value will be outputted as customer balance which in the next step is save to the database in the customer table.
 
 <img width="900" alt="Receive Payment" src="images/TalendReceivePayment.PNG">
 
