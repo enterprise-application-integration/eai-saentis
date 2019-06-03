@@ -63,15 +63,15 @@ To implement the scenario we created a database for the project. The database ha
     * <img width="700" alt="Receive Payment" src="images/TalendReceivePayment.PNG">
 
 ### Inventory Service
-* Before completing the purchase, the inventory is checked for availability. 
+* Before completing the purchase, the inventory has to be updated. 
 
     * <img width="700" alt="Inventroy Update" src="images/TalendUpdateInventory.PNG">
 
-* The tMap fetches the maxorder and product tables and joins them through the product name attribute. It then finds the product stock from the product table and compares the amount to the quantity ordered. If the amount in stock is larger than the amount ordered, it subtracts the quantity ordered from the stock. This calculation is shown in the image below. 
+* The tMap fetches the maxorder and product tables and joins them through the product name attribute. It then takes the product ordered quantity from the max order table as variable V1 and the product stock from the product table as variable V2. To find variable V3, V1 (ordered quantity) is subtracted from the V2 (product stock). This variable V3 demonstrates the difference in inventory after the customer's order is finalized. 
 
     * <img width="700" alt="Inventory Calculation" src="images/InventoryCalculation.png">
 
-* When the amount in stock falls below 0, it will load 100 more products to the inventory. The inventory is then updated in the database.
+* If variable V3 is smaller than 0, then the product stock will be first increased by 100 units and then subtracted by variable V2. This creates the new variable Var1, which will be the final inventory number that is updated in the database. 
 
     * <img width="700" alt="Inventroy Update" src="images/TalendUpdateInventory.PNG">
 
