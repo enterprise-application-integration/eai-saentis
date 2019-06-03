@@ -25,7 +25,7 @@ To implement the scenario we created a database for the project. The database ha
 ### Order placement
 * The first implementation we did was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as Welcome and Goodbye to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario (see picture).
 
-    * <img width="700" alt="Dialogue Flow" src="images/DialogueFlow.PNG">
+<img width="700" alt="Dialogue Flow" src="images/DialogueFlow.PNG" placement="center">
 
 To ensure the order entered in the Dialogue Flow will be processed we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialogue Flow. Through the webhook the order data will be taken and entered into a Google sheet.
 
