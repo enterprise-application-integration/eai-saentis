@@ -1,7 +1,7 @@
 # Säntis Group
 
 ## Introduction
-The Santis group is a grocery store that ships it's products to their customer's front door. Santis' customers put in their order through their smart speaker. This incoming order triggers the process of charging the customer's credit card. Once the order is fulfilled they receive an e-mail informing them that their package is on its way, and are provided with a tracking number so they can trace their package.
+The Säntis group is a grocery store that ships it's products to their customer's front door. Säntis' clientele put in their order through their smart speaker. This incoming order triggers the process of charging the customer's credit card. Once the order is fulfilled they receive an e-mail informing them that their package is on its way, and are provided with a tracking number so they can trace their package.
 
 ## Scenario
 We took the scenario suggested by the lectures and adopted it into Säntis process. As it was suggested, the process can be split into four main process steps: order placement, receive payment, update inventory and order shipment.
@@ -17,20 +17,19 @@ We took the scenario suggested by the lectures and adopted it into Säntis proce
 7. Lastly, the order shipment requires the generation of a tracking number which is then sent in an email to the customer, confirming the shipping of the order.
 
 ## Implementation
-We designed the process as a choreography. Meaning that the sub-processes we would link among each other and not be delegated by a central brain. We chose to implement it this way because the order of the process steps was not going to change throughout this project. Additionally, implementing a process as a choreography brings the drawback of it being difficult to manage and maintain, this does not apply to our project since be do not plan on modifying it after completing the project. As to the disadvantage of it being difficult to monitor and track errors, we were able to avoid this because our project was small in size and complexity. Based on the way we implemented the process, the steps are of a synchronous nature, meaning that each process step has to be successfully completed for it to pass on to the next step. 
+We designed the process as a choreography. Meaning that the sub-processes  would link among each other and not be delegated by a central brain. We chose to implement it this way because the order of the process steps was not going to change throughout this project. Although, implementing a process as a choreography brings the drawback of it being difficult to manage and maintain, this does not apply to our project since be do not plan on modifying it after completing it. As to the disadvantage of it being difficult to monitor and track errors it did not affect us too strongly due to the fact that our project was small in size and complexity. Based on the way we implemented the process, the steps are of a synchronous nature, meaning that each process step has to be successfully completed for it to pass on to the next step. 
 
 ### Database
-To implement the scenario we created a database for the project. The database has 5 tables: customer, product, orders, shipping and maxorder. The customer table contains the common attributes such as Name and address but also the customer's credit card number and balance. The product table holds the list of products with their prices and the amount on stock. The orders table and maxorder both hold the same attributes such as customer and order ID, product name and quantity as well as the order sum. The difference between these two is that the order table holds all orders made and entered into the database where as maxorder only contains the most current order that is being processed. Lastly, the shipping table holds the tracking number of the shipment but only not newest order.
+To implement the scenario we created a database for the project. The database has 5 tables: customer, product, orders, shipping and maxorder. The customer table contains the common attributes such as Name and address but also the customer's credit card number and balance. The product table holds the list of products with their prices and the amount on stock. The orders table and maxorder both hold the same attributes such as customer and order ID, product name and quantity as well as the order sum. The difference between these two is that the order table holds all orders made and entered into the database where as maxorder only contains the most current order that is being processed. Lastly, the shipping table holds the tracking number of the shipment but only for the newest order.
 
-### Talend
-To make the work in Talend a bit easier and less redundant, we saved some parts of recurring work in the metadata of Talend. The connection configurations to our MYSQL database, the request and response files of our service and the schemas of the tables from our database.
-
-<img width="300" alt="Meta1" src="images/Meta1.PNG"><img width="200" alt="Meta2" src="images/Meta2.PNG">
+* <img width="700" alt="Database Structure" src="images/DBModel.PNG">
 
 ### Order placement
 * The first implementation step we did was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as 'Welcome' and 'Goodbye' to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario.
 
-    * <img width="700" alt="Dialogue Flow" src="images/DialogueFlow.PNG">
+    * <img width="700" alt="Dialogue Flow Backend" src="images/DialogueFlow.PNG">
+    
+    * <img width="700" alt="Dialogue Flow Frontend" src="images/SäntisDialogueFlow.PNG">
 
 * To ensure the order entered in the Dialogue Flow will be processed, we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialogue Flow. Through the webhook the order data will be taken and entered into a Google sheet.
 
@@ -40,17 +39,17 @@ To make the work in Talend a bit easier and less redundant, we saved some parts 
 
     * <img width="500" alt="Google Sheet" src="images/GoogleTableOrder_Listener.PNG">
 
-* To start the order placement task in Talend, the Google sheet has to be read by the program. For that to be possible, the file first has to be published to the Web. Then through the tFileFetch component it can be retrieved. The component is configured to read a specific protocol, in this case the protocol https, and given an URI link to access the wanted file. If the file is fetched successfully, the next part of the job is triggered.
+* To start the order placement task in Talend, the Google sheet has to be read by the program. For that to be possible, the file first has to be published to the Web. Then through the tFileFetch component it can be retrieved. The component is configured to read a specific protocol, in this case the protocol is https, and given an URI link to access the wanted file. If the file is fetched successfully, the next part of the job is triggered.
     
-* The next job extracts the order data from the file and inputs it into the table orders, which is located in the database. Due to the structure of the downloaded google sheet file, which is now a csv file, we use the tFileInputDelimited component. This component reads a given file row by row with simple separated fields. In our example the field separators is a “,”. 
+* The next job extracts the order data from the file and inputs it into the table orders, which is located in the database. Due to the structure of the downloaded google sheet file, which is now a .csv file, we use the tFileInputDelimited component. This component reads a given file row by row with simple separated fields. In our example the field separators is a “,”. 
 
-* The task of the next sub-job is for the newest line of the order table to be read and inputted into the maxorder. To make sure the last order made is read, the tAggregateRow component is used. It goes through the order_id column and looks for the largest number. The newest line is then entered into the maxorder table which at the same time overwrites the existing row in that table.
+* The task of the following sub-job is for the newest line of the order table to be read and inputted into the maxorder. To make sure the last order made is read, the tAggregateRow component is used. It goes through the order_id column and looks for the largest number. The newest line is then entered into the maxorder table which at the same time overwrites the existing row in that table.
 
     * <img width="700" alt="Order Placement" src="images/TalendOrderPlacement.PNG">
 
 ### Payment Service
-* The next step is to collect payment from the customer. Before deducting anything from the clients credit card the total price of the order has to be calculated. This is done by first reading the product from the order. For this we use the component tMap, which compares the product names from maxorder and orders and generates a list of the products ordered. If this step fails the tSendMail component sends an email to the projects Gmail address demonstrating an error. But if the step succeeds the “message” flows to the next component. 
-* Once the ordered products are read the prices for these have to be gathered. For this task we chose to create a Finance Job that has the task of reading the product name and returning its price. Therefore, we will be implementing this job as a (micro)service in our project. To be able to implement this job in our flow we first had to create a Service Product_Order in Talend. Thus we set up a .wsdl file which defined the input and output parameters, in this case those were product name and product price respectively. We then saved the created service as metadata for it to be reused if necessary. Next we had to assign the Finance Job we had previously created to the Product_Order Service. Once the service was created it could be called by the tESBConsumer element. 
+* The next step is to collect payment from the customer. Before deducting anything from the clients credit card the total price of the order has to be calculated. This is done by first reading the product from the order. For this we use the component tMap, which compares the product names from maxorder and orders and generate a list of the products ordered. If this step fails the tSendMail component send an email to the projects Gmail address demonstrating an error. But if the step succeeds the “message” flows to the next component. 
+* Once the ordered product are read the prices for these have to be gathered. For this task we chose to create a Finance Job that has the task of reading the product name and returning its price. Therefore we will be implementing this job as a (micro)service in our project. To be able to implement this job in our flow we first had to create a Service Product_Order in Talend. Thus we set up a .wsdl file which defined the input and output parameters, in this case those were product name and product price respectively. We then saved the created service as metadata for it to be reused if necessary. Next we had to assign the Finance Job we had previously created to the Product_Order Service. Once the service was created it could be called by the tESBConsumer element. 
 * If the service is successfully executed the output parameters are mapped to ensure that all products have receive a product price. If the price returned is false, in other words no value was returned the tSendMail component will inform of the error. If that is not the case the return variables will be mapped in the tMap component maxorder table. There the product price will be multiplied by the product quantity resulting in the total product sum. Once again if the tMap returns an error this is communicated by the tSendMail component else the value of order_sum in both the order and maxorder table are updated.
 
     * <img width="700" alt="Calculate Price" src="images/TalendPriceCalculation.PNG">
@@ -68,33 +67,31 @@ To make the work in Talend a bit easier and less redundant, we saved some parts 
     * <img width="700" alt="Receive Payment" src="images/TalendReceivePayment.PNG">
 
 ### Inventory Service
-* Before completing the purchase, the inventory has to be updated. 
+* Before completing the purchase, the inventory is checked for availability. 
 
     * <img width="700" alt="Inventroy Update" src="images/TalendUpdateInventory.PNG">
 
-* The tMap fetches the maxorder and product tables and joins them through the product name attribute. It then takes the product ordered quantity from the max order table as variable V1 and the product stock from the product table as variable V2. To find variable V3, V1 (ordered quantity) is subtracted from the V2 (product stock). This variable V3 demonstrates the difference in inventory after the customer's order is finalized. 
+* The tMap fetches the maxorder and product tables and joins them through the product name attribute. It then finds the product stock from the product table and compares the amount to the quantity ordered. If the amount in stock is larger than the amount ordered, it subtracts the quantity ordered from the stock. This calculation is shown in the image below. 
 
     * <img width="700" alt="Inventory Calculation" src="images/InventoryCalculation.png">
 
-* If variable V3 is smaller than 0, then the product stock will be first increased by 100 units and then subtracted by variable V2. This creates the new variable Var1, which will be the final inventory number that is updated in the database. 
+* When the amount in stock falls below 0, it will load 100 more products to the inventory. The inventory is then updated in the database.
 
-    * <img width="700" alt="Inventroy Update" src="images/TalendUpdateInventory.PNG">
+ <img width="700" alt="Inventroy Update" src="images/TalendUpdateInventory.PNG">
 
 ### Order Shipment
-* The last step is the order shipment. This step requires the generation of a shipment ID for the customer’s order. The number is autogenerated when the order ID from maxorder table is entered into the shipping table. On the successful execution of that sub-job the shipment ID is read from the database. 
+The last step is the order shipment. This step requires the generation of a shipment ID for the customer’s order. The number is autogenerated when the order ID from maxorder table is entered into the shipping table. On the successful execution of that sub-job the shipment ID is read from the database. It is then embedded into an e-mail that is sent to the customer to inform them that their order in on its way.
 
-    * <img width="700" alt="Order Shipment" src="images/TalendOrderShipment.PNG">
+<img width="900" alt="Order Shipment" src="images/TalendOrderShipment.PNG">
 
-* The shipment ID is then embedded into an e-mail that is sent to the customer, which informs them that their order is on its way.
-
-    * <img width="700" alt="Shipment Email" src="images/ShipmentEmail.PNG">
+<img width="900" alt="Shipment Email" src="images/ShipmentEmail.PNG">
 
 ### Issues / Workarounds
-During the development of our Enterprise Application Integration we encountered a variety of different problems and errors. Following there is a short description and the solution or workaround we chose for all major problems we faced.
+During the development of our Enterprise Application Integration we encountered a variety of different problems and errors. Below we stated short description and the solution or workaround we chose for all major problems we faced.
 
 * Installation of Talend
     * At the very beginning of the project, we had extreme difficulties to install the Talend software on our laptops. This might be due to the fact, that most members of our group are using a Macbook. Another reason could have been the unavailability of XAMP. We had to use MAMP instead which caused also problems with Talend.
-    * As a solution we installed Talend on our PC at home and during the coaching lessons, where we worked on our project, established a TeamViewer connection to our Laptop. This way, a working Talend environment was ensured.
+    * As a solution we installed Talend on our PC at home and during the coaching lessons, where we worked on our project, we established a TeamViewer connection to our Laptop. This way, a working Talend environment was ensured.
 
 * Errormessage that caused Talend to crash
     * During the workprocess, an error message showed up quite frequently, which caused Talend to crash. The message poped up in all different jobs and elements. It seemed not to be triggered by a single job or action.
@@ -114,7 +111,7 @@ During the development of our Enterprise Application Integration we encountered 
 
 * Sending Emails via Talend
     * We could not send emails via the tSendMail element. We tried a lot of different combinations of ports, providers, email adresses and configurations of the element. But nothing seemed to help.
-    * In the end, the solution was rather simple. Again the antivirus software "Avast" seemed to block all ports for Talend. With a deactivation this could be managed.
+    * In the end, the solution was rather simple. Again the antivirus software "Avast" seemed to block all ports for Talend. With the deactivation of the softwar this could be managed.
 
 * Using variables to display database values in a email text.
     * Another problem we faced was the use of variables in an tSendMail element to display values of the database like orderID or tracking number. At first, we tried to make the DB values useable through a tJavaRow element. After this did not work, we tried to hardcode the variables with a tJava element. But this did not work either.
@@ -122,7 +119,7 @@ During the development of our Enterprise Application Integration we encountered 
 
     <img width="900" alt="sendmail_toiterate" src="images/sendmail_toiterate.png">
 
-    * Depending on the datatype, this global variable can then be used with the following statement directly within the body of the email. In our case, the integer with the name order_id is read used as a global variable from the connection "row22". 
+    * Depending on the datatype, this global variable can then be used with the following statement directly within the body of the email. In our case, the integer with the name order_id is read and used as a global variable from the connection "row22". 
 
     <img width="900" alt="sendmail_body" src="images/sendmail_body.png">
 
