@@ -6,7 +6,7 @@ The Santis group is a grocery store that ships it's products to their customers'
 ## Scenario
 We took the scenario suggested by the lectures and adopted it into Säntis process. As it was suggested, the process can be split into four main process steps: order placement, receive payment, update inventory and order shipment.
 
-<img width="500" alt="Structure" src="images/ServiceStructure.png">
+<img width="900" alt="Structure" src="images/ServiceStructure.png">
 
 1. The order placement starts when the customer makes their order. To place it, they will use their smart speaker such as Alexa or Google Home.
 2. Once the speaker takes and executes the order, it will be saved to a Table on Google Drive to later be accessed and processed.
@@ -35,9 +35,9 @@ The order data in the google sheet called Order_Listener will always be overwrit
 
 <img width="500" alt="Google Sheet" src="images/GoogleTableOrder_Listener.PNG">
 
-To start the order placement, the  Google sheet has to be read by Talend. To do so the file has to be published to the Web. Then through the tFileFetch component it can be retrieved using the files URL link. If the file is fetched successfully the next part of the job is triggered.
-The next job extracts the data from the order from the file and inputs it into the orders table, which is located in the database.
-The task of the next sub-job is for the newest line of the order table to be read and inputted into the maxorder. To make sure the last order made ie read, the tAggregateRow component is used. It goes through the order_id column and looks for the largest number. The newest order is then entered into the maxorder table at the same time which overwrites the existing row in that table.
+To start the order placement task in Talend, the Google sheet has to be read by the program first. For that to be possible the file first has to be published to the Web. Then through the tFileFetch component it can be retrieved. The component is configured to read a specific protocol, in this case the protocol https, and given an URI link to access the wanted file. If the file is fetched successfully the next part of the job is triggered.
+The next job extracts the order data from the file and inputs it into the table orders, which is located in the database. Due to the structure of the downloaded google sheet file, which is now a csv file, we use the tFileInputDelimited component. This component reads a given file row by row with simple separated fields. In our example the field separators is a “,”. 
+The task of the next sub-job is for the newest line of the order table to be read and inputted into the maxorder. To make sure the last order made is read, the tAggregateRow component is used. It goes through the order_id column and looks for the largest number. The newest line is then entered into the maxorder table which at the same time overwrites the existing row in that table.
 
 <img width="500" alt="Order Placement" src="images/TalendOrderPlacement.PNG">
 
