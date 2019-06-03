@@ -17,7 +17,7 @@ We took the scenario suggested by the lectures and adopted it into Säntis proce
 7. Lastly, the order shipment requires the generation of a tracking number which is then sent in an email to the customer, confirming the shipping of the order.
 
 ## Implementation
-We designed the process as a choreography. Meaning that the sub-processes we would link among each other and not be delegated by a central brain. We chose to implement it this way because the order of the process steps was not going to change throughout this project. Additionally, implementing a process as a choreography brings the drawback of it being difficult to manage and maintain, this does not apply to our project since we do not plan on modifying it after completing the project. As to the disadvantage of it being difficult to monitor and track errors, we were able to avoid this because our project was small in size and complexity. Based on the way we implemented the process, the steps are of a synchronous nature, meaning that each process step has to be successfully completed for it to pass on to the next step. 
+We designed the process as a choreography. Meaning that the sub-processes would be linked among each other and not be delegated by a central brain. We chose to implement it this way because the order of the process steps was not going to change throughout this project. Although, implementing a process as a choreography brings the drawback of it being difficult to manage and maintain, this does not apply to our project since we do not plan on modifying it after completing the project. In regard to the disadvantage of it being difficult to monitor and track errors in a choreography, this did not affecte too strongly scine our project was small in size and complexity. Based on the way we implemented the process, the steps are of a synchronous nature, meaning that each process step has to be successfully completed for it to pass on to the next step. 
 
 ### Database
 To implement the scenario we created a database for the project. The database has 5 tables: 
@@ -30,7 +30,7 @@ To implement the scenario we created a database for the project. The database ha
 
 The customer table contains the common attributes such as Name and address but also the customer's credit card number and balance. The product table holds the list of products with their prices and the amount on stock. The orders table and maxorder both hold the same attributes such as customer and order ID, product name and quantity as well as the order sum. The difference between these two is that the order table holds all orders made and entered into the database where as maxorder only contains the most current order that is being processed. Lastly, the shipping table holds the tracking number of the shipment but only not newest order.
 
-* <img width="700" alt="Database Structure" src="images/DBModel.PNG">
+   * <img width="700" alt="Database Structure" src="images/DBModel.PNG">
 
 ### Order placement
 * The first implementation step we did was the input of the order over the smart speaker. To simulate this, we use Dialoge Flow. In Dialoge Flow we created various intents such as 'Welcome' and 'Goodbye' to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario.
