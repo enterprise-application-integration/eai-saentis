@@ -108,3 +108,13 @@ During the development of our Enterprise Application Integration we encountered 
     * Depending on the datatype, this global variable can then be used with the following statement directly within the body of the email. In our case, the integer with the name order_id is read used as a global variable from the connection "row22". 
 
     <img width="900" alt="sendmail_body" src="images/sendmail_body.png">
+
+* Transformation from an XML structured value to a Double
+    * With a service we compare a the product name in the order with the name in the table products to get the price of the product for further calculations. This price is outputted in XML format.
+
+    <img width="500" alt="xml_price" src="images/xml_price.png">
+
+    * The issue with this was in the beginning, that we could not transform this xml output into a format whit which we could further calculate the sum of the order. We tried different Talend elements like tExtractXMLField, tFileInputXML etc.
+    * What led to the solution in the end was way more easy. This was a typical case of "thinking to far". We just used another tXMLMap element and mapped the price to a field product_price as a Double.
+
+    <img width="500" alt="transform" src="images/transform.png">
