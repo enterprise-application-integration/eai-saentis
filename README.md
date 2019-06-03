@@ -23,9 +23,9 @@ We designed the process as a choreography. Meaning that the sub-processes we wou
 To implement the scenario we created a database for the project. The database has 5 tables: customer, product, orders, shipping and maxorder. The customer table contains the common attributes such as Name and address but also the customer's credit card number and balance. The product table holds the list of products with their prices and the amount on stock. The orders table and maxorder both hold the same attributes such as customer and order ID, product name and quantity as well as the order sum. The difference between these two is that the order table holds all orders made and entered into the database where as maxorder only contains the most current order that is being processed. Lastly, the shipping table holds the tracking number of the shipment but only not newest order.
 
 ### Order placement
-The first implementation we did was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as Welcome and Goodbye to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario (see picture).
+* The first implementation we did was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as Welcome and Goodbye to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario (see picture).
 
-<img width="900" alt="Dialogue Flow" src="images/DialogueFlow.PNG">
+    * <img width="700" alt="Dialogue Flow" src="images/DialogueFlow.PNG">
 
 To ensure the order entered in the Dialogue Flow will be processed we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialogue Flow. Through the webhook the order data will be taken and entered into a Google sheet.
 
