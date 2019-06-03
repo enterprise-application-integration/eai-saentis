@@ -17,21 +17,29 @@ We took the scenario suggested by the lectures and adopted it into Säntis proce
 7. Lastly, the order shipment requires the generation of a tracking number which is then sent in an email to the customer, confirming the shipping of the order.
 
 ## Implementation
-We designed the process as a choreography. Meaning that the sub-processes  would link among each other and not be delegated by a central brain. We chose to implement it this way because the order of the process steps was not going to change throughout this project. Although, implementing a process as a choreography brings the drawback of it being difficult to manage and maintain, this does not apply to our project since be do not plan on modifying it after completing it. As to the disadvantage of it being difficult to monitor and track errors it did not affect us too strongly due to the fact that our project was small in size and complexity. Based on the way we implemented the process, the steps are of a synchronous nature, meaning that each process step has to be successfully completed for it to pass on to the next step. 
+We designed the process as a choreography. Meaning that the sub-processes we would link among each other and not be delegated by a central brain. We chose to implement it this way because the order of the process steps was not going to change throughout this project. Additionally, implementing a process as a choreography brings the drawback of it being difficult to manage and maintain, this does not apply to our project since we do not plan on modifying it after completing the project. As to the disadvantage of it being difficult to monitor and track errors, we were able to avoid this because our project was small in size and complexity. Based on the way we implemented the process, the steps are of a synchronous nature, meaning that each process step has to be successfully completed for it to pass on to the next step. 
 
 ### Database
-To implement the scenario we created a database for the project. The database has 5 tables: customer, product, orders, shipping and maxorder. The customer table contains the common attributes such as Name and address but also the customer's credit card number and balance. The product table holds the list of products with their prices and the amount on stock. The orders table and maxorder both hold the same attributes such as customer and order ID, product name and quantity as well as the order sum. The difference between these two is that the order table holds all orders made and entered into the database where as maxorder only contains the most current order that is being processed. Lastly, the shipping table holds the tracking number of the shipment but only for the newest order.
+To implement the scenario we created a database for the project. The database has 5 tables: 
+
+ - customer 
+ - product 
+ - orders 
+ - shipping
+ - maxorder 
+
+The customer table contains the common attributes such as Name and address but also the customer's credit card number and balance. The product table holds the list of products with their prices and the amount on stock. The orders table and maxorder both hold the same attributes such as customer and order ID, product name and quantity as well as the order sum. The difference between these two is that the order table holds all orders made and entered into the database where as maxorder only contains the most current order that is being processed. Lastly, the shipping table holds the tracking number of the shipment but only not newest order.
 
 * <img width="700" alt="Database Structure" src="images/DBModel.PNG">
 
 ### Order placement
-* The first implementation step we did was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as 'Welcome' and 'Goodbye' to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario.
+* The first implementation step we did was the input of the order over the smart speaker. To simulate this, we use Dialoge Flow. In Dialoge Flow we created various intents such as 'Welcome' and 'Goodbye' to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario.
 
     * <img width="700" alt="Dialogue Flow Backend" src="images/DialogueFlow.PNG">
     
     * <img width="700" alt="Dialogue Flow Frontend" src="images/SäntisDialogueFlow.PNG">
 
-* To ensure the order entered in the Dialogue Flow will be processed, we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialogue Flow. Through the webhook the order data will be taken and entered into a Google sheet.
+* To ensure the order entered in the Dialoge Flow will be processed, we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialoge Flow. Through the webhook the order data will be taken and entered into a Google sheet.
 
     * <img width="700"  alt="Integromat" src="images/Integromat.PNG">
 
