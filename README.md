@@ -54,7 +54,7 @@ The next step is to collect payment from the customer. The ___ collects the orde
 
 ### Inventory Service
 
-Before completing the purchase, it then checks the stock of the ordered products from the Product table in the database. The ordered quantity is then subtracted from the existing inventory. If, however, there is not enough inventory for the product, it loads 100 more units to the product’s inventory.
+Before completing the purchase, the inventory is checked for availability. It fetches the maxorder and product tables inner and is joint through the product name. Here it subtracts the quantity from the stock to ensure there is enough inventory of the ordered product. If however, there is not enough, it will load 100 more products to the inventory. Error catch? The inventory is then updated in the database.
 
  <img width="500" alt="Inventroy Update" src="images/TalendUpdateInventory.PNG">
 
