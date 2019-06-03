@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010">
+  <TalendMetadata:GenericSchemaConnection xmi:id="_FyoQwHsAEemMz_kLxjp-Zg" comment="connectionComment" label="connectionLabel" dataPackage="_FyoQwXsAEemMz_kLxjp-Zg" mappingTypeUsed="true" mappingTypeId="mysql_id"/>
+  <TalendMetadata:GenericPackage xmi:id="_FyoQwXsAEemMz_kLxjp-Zg" dataManager="_FyoQwHsAEemMz_kLxjp-Zg">
+    <ownedElement xsi:type="TalendMetadata:MetadataTable" xmi:id="_FyoQwnsAEemMz_kLxjp-Zg" label="metadata">
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_FyoQw3sAEemMz_kLxjp-Zg" name="product_id" id="220" label="product_id" length="-1" precision="-1" sourceType="INT" talendType="id_Integer" key="true">
+        <initialValue xmi:id="_FyoQxHsAEemMz_kLxjp-Zg"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_FyoQxXsAEemMz_kLxjp-Zg" name="product_name" id="221" label="product_name" length="-1" precision="-1" sourceType="VARCHAR" talendType="id_String">
+        <initialValue xmi:id="_FyoQxnsAEemMz_kLxjp-Zg"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_FyoQx3sAEemMz_kLxjp-Zg" name="product_stock" id="222" label="product_stock" length="-1" precision="-1" sourceType="INT" talendType="id_Integer">
+        <initialValue xmi:id="_FyoQyHsAEemMz_kLxjp-Zg"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_FyoQyXsAEemMz_kLxjp-Zg" name="product_price" id="223" label="product_price" length="-1" precision="-1" sourceType="DOUBLE" talendType="id_Double">
+        <initialValue xmi:id="_FyoQynsAEemMz_kLxjp-Zg"/>
+      </feature>
+    </ownedElement>
+  </TalendMetadata:GenericPackage>
+</xmi:XMI>
