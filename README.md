@@ -36,11 +36,11 @@ To make the work in Talend a bit easier and less redundant, we saved some parts 
 <img width="300" alt="Meta1" src="images/Meta1.PNG"><img width="200" alt="Meta2" src="images/Meta2.PNG">
 
 ### Order placement
-* The first implementation step we did was the input of the order over the smart speaker. To simulate this, we use Dialogue Flow. In Dialogue Flow we created various intents such as 'Welcome' and 'Goodbye' to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario.
+* The first implementation step we did was the input of the order over the smart speaker. To simulate this, we use Dialoge Flow. In Dialoge Flow we created various intents such as 'Welcome' and 'Goodbye' to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario.
 
     * <img width="700" alt="Dialogue Flow" src="images/DialogueFlow.PNG">
 
-* To ensure the order entered in the Dialogue Flow will be processed, we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialogue Flow. Through the webhook the order data will be taken and entered into a Google sheet.
+* To ensure the order entered in the Dialoge Flow will be processed, we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialoge Flow. Through the webhook the order data will be taken and entered into a Google sheet.
 
     * <img width="700"  alt="Integromat" src="images/Integromat.PNG">
 
