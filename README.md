@@ -44,7 +44,7 @@ The task of the next sub-job is for the newest line of the order table to be rea
 
 ### Payment Service
 
-The next step is to deduct the outstanding amount from the customers pre-existing balance. The customer’s balance is then updated in the Customer table of the database.
+The next step is to collect payment from the customer. The ___ collects the order from ___ and matches the price to product through the max order, to calculate the order sum. This is calculated by multiplying the product price by the quantity ordered. If there is an error, then an e-mail is sent, identifying the problem. Through the process there are tlogs in place to ensure the service is working correctly. There are two database outputs in the payment service. One is to store the order sum in the order table and the other is to store it in the maxorder. To deduct the outstanding amount from the customers pre-existing balance, the max order table and customer table are joint through the customer ID. The order sum is subtracted from the customer's balance to make the payment. If however, there is not enough balance in the customer's account, then an additional 100 is added in the balance. The customer’s balance is then updated in the Customer table of the database.
 
 <img width="500" alt="Calculate Price" src="images/TalendPriceCalculation.PNG">
 
