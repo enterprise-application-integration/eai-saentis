@@ -33,13 +33,13 @@ The customer table contains the common attributes such as name and address but a
    * <img width="700" alt="Database Structure" src="images/DBModel.PNG">
 
 ### Order placement
-* The first step we implemented was the input of the order over the smart speaker. To simulate this, we use Dialoge Flow. In Dialoge Flow we created various intents such as 'Welcome' and 'Goodbye' to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario.
+* The first step we implemented was the input of the order over the smart speaker. To simulate this, we use Dialogflow. In Dialogflow we created various intents such as 'Welcome' and 'Goodbye' to contain training words that the machine can recognize. We also created one that contained training phrases which would occur in our scenario.
 
-    * <img width="700" alt="Dialogue Flow Backend" src="images/DialogueFlow.PNG">
+    * <img width="700" alt="Dialogflow Backend" src="images/DialogueFlow.PNG">
     
-    * <img width="700" alt="Dialogue Flow Frontend" src="images/SäntisDialogueFlow.PNG">
+    * <img width="700" alt="Dialogflow Frontend" src="images/SäntisDialogueFlow.PNG">
 
-* So as for the order entered in the Dialoge Flow to be processed, we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialoge Flow. Through the webhook the order data will be taken and entered into a Google sheet.
+* So as for the order entered in the Dialogflow to be processed, we linked it to the Integromat. In the Integromat we created a webhook and linked it to the Dialogflow. Through the webhook the order data will be taken and entered into a Google sheet.
 
     * <img width="700"  alt="Integromat" src="images/Integromat.PNG">
 
